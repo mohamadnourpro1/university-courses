@@ -14,8 +14,9 @@ class MyGridView extends StatelessWidget {
         int displayIndex = index + 1;
         return InkWell(
           onTap: () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => SelectSeasonScreen()));
+            // Navigator.of(context).push(
+            //     MaterialPageRoute(builder: (context) => SelectSeasonScreen()));
+               Navigator.of(context).pushNamed('Login/Level/ViewCourseS/');
           },
           child: Card(
             child: Container(

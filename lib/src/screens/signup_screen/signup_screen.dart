@@ -76,10 +76,11 @@ class SignUpScreen extends StatelessWidget {
                     signupText: 'تسجيل دخول',
                     promptText: 'هل فعلا" لديك حساب؟',
                     onSignupPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LogInScreen()),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => LogInScreen()),
+                      // );
+                      Navigator.of(context).pushReplacementNamed('/Login/');
                     },
                   ),
                 ],

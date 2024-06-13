@@ -3,6 +3,7 @@ import 'package:university_courses/providers.dart';
 import 'package:university_courses/src/screens/splash-screen/splash-screen.dart';
 import 'package:university_courses/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:university_courses/routes.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         theme: appTheme,
         debugShowCheckedModeBanner: false,
-        home: SplashScreen(),
+        routes: routes,
       ),
     );
   }

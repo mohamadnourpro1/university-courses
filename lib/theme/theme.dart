@@ -12,7 +12,8 @@ final ThemeData appTheme = ThemeData(
       onSurface: Colors.black,
       onError: Colors.white,
       brightness: Brightness.light,
-      
+      background: Color(0xFFFFFFFF), //   
+      onBackground: Colors.black, //   
     ),
     textTheme: TextTheme(
         bodySmall: TextStyle(
@@ -27,3 +28,5 @@ final ThemeData appTheme = ThemeData(
           color: Colors.white,
           fontSize: 20,
         )));
+
+

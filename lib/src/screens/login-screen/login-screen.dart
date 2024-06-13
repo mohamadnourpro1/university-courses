@@ -61,13 +61,14 @@ class LogInScreen extends StatelessWidget {
                   LoginButton(
                     text: 'تسجيل الدخول',
                     onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                LevelScreen()), //تجريب فقط للانتقال *_*
-                        //ادارة الحالة
-                      );
+                      // Navigator.pushReplacement(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) =>
+                      //           LevelScreen()), //تجريب فقط للانتقال *_*
+                      //   //ادارة الحالة
+                      // );
+                      Navigator.of(context).pushNamed('Login/Level/');
                     },
                   ),
                   SizedBox(height: 20),
@@ -75,10 +76,11 @@ class LogInScreen extends StatelessWidget {
                     signupText: 'إنشاء حساب',
                     promptText: 'ليس لديك حساب؟',
                     onSignupPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => SignUpScreen()),
-                      );
+                      // Navigator.pushReplacement(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => SignUpScreen()),
+                      // );
+                      Navigator.of(context).pushNamed('Login/SignUp/');
                     },
                   ),
                 ],

@@ -19,12 +19,13 @@ class CardLevelWidget extends StatelessWidget {
               color: appTheme.colorScheme.primary,
               child: InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ViewLevelScreen(),
-                    ),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => ViewLevelScreen(),
+                  //   ),
+                  // );
+                  Navigator.of(context).pushNamed('Login/Level/SelectSeason/');
                 },
                 child: Container(
                   height: cardHeight,
@@ -44,12 +45,13 @@ class CardLevelWidget extends StatelessWidget {
               color: appTheme.colorScheme.primary,
               child: InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ViewLevelScreen(),
-                    ),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => ViewLevelScreen(),
+                  //   ),
+                  // );
+                     Navigator.of(context).pushNamed('Login/Level/SelectSeason/');
                 },
                 child: Container(
                   height: cardHeight,
@@ -69,12 +71,13 @@ class CardLevelWidget extends StatelessWidget {
               color: appTheme.colorScheme.primary,
               child: InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ViewLevelScreen(),
-                    ),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => ViewLevelScreen(),
+                  //   ),
+                  // );
+                     Navigator.of(context).pushNamed('Login/Level/SelectSeason/');
                 },
                 child: Container(
                   height: cardHeight,
@@ -94,12 +97,13 @@ class CardLevelWidget extends StatelessWidget {
               color: appTheme.colorScheme.primary,
               child: InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ViewLevelScreen(),
-                    ),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => ViewLevelScreen(),
+                  //   ),
+                  // );
+                     Navigator.of(context).pushNamed('Login/Level/SelectSeason/');
                 },
                 child: Container(
                   height: cardHeight,

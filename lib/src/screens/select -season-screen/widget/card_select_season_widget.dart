@@ -16,10 +16,11 @@ class CardSelectSeasonWidget extends StatelessWidget {
               color: appTheme.colorScheme.primary,
               child: InkWell(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ViewCourseScreen()));
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => ViewCourseScreen()));
+                       Navigator.of(context).pushNamed('Login/Level/ViewLevel/');
                   },
                   child: Container(
                     height: 380,
