@@ -1,4 +1,4 @@
-import 'package:university_courses/src/screens/level-screen/widget/card_level_widget.dart';
+import 'package:university_courses/src/screens/level-screen/widget/Sscroll_view_widget.dart';
 import 'package:university_courses/src/widgets/BottomNavigationBarWidget.dart';
 import 'package:university_courses/src/widgets/EndDrawerWidget.dart';
 import 'package:university_courses/src/widgets/AppBarWidget.dart';
@@ -11,9 +11,9 @@ class LevelScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(showBackButton: false),
-      body: CardLevelWidget(),
+      body: ScrollViewWidgetCard(),
       endDrawer: MyEndDrawer(),
-      bottomNavigationBar: MyBottomNavigationBar( ),
+      bottomNavigationBar: MyBottomNavigationBar(),
     );
   }
 }

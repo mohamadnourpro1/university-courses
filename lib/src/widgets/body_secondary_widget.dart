@@ -16,21 +16,21 @@ class BodySecondaryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: appTheme.colorScheme.secondary,
+      color: lightTheme.colorScheme.secondary,
       padding: EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-          Text(title, style: appTheme.textTheme.bodyLarge),
+          Text(title, style: lightTheme.textTheme.bodyLarge),
           SizedBox(height: 30.0),
           Text(
             text1,
-            style: appTheme.textTheme.bodyMedium,
+            style: lightTheme.textTheme.bodyMedium,
           ),
           SizedBox(height: 30.0),
           Text(
             text2,
-            style: appTheme.textTheme.bodyMedium,
+            style: lightTheme.textTheme.bodyMedium,
           ),
         ],
       ),

@@ -3,30 +3,30 @@ import 'package:university_courses/src/screens/View_level_screen/View_level_scre
 import 'package:university_courses/src/screens/book_screen/book_screen.dart';
 import 'package:university_courses/src/screens/calendar_today_screen/calendar_today_screen.dart';
 import 'package:university_courses/src/screens/level-screen/level-screen.dart';
-import 'package:university_courses/theme/theme.dart';
 
 class MyBottomNavigationBar extends StatelessWidget {
   MyBottomNavigationBar();
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return BottomNavigationBar(
-      selectedItemColor: appTheme.colorScheme.secondary,
+      selectedItemColor: theme.bottomNavigationBarTheme.selectedItemColor,
       unselectedItemColor: Colors.white,
-      backgroundColor: appTheme.colorScheme.primary,
+      backgroundColor: theme.bottomNavigationBarTheme.backgroundColor,
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.menu_book_rounded,
-              color: appTheme.colorScheme.secondary),
+          icon:
+              Icon(Icons.menu_book_rounded, color: theme.colorScheme.secondary),
           label: 'الاخبار',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.home, color: appTheme.colorScheme.secondary),
+          icon: Icon(Icons.home, color: theme.colorScheme.secondary),
           label: 'الرئيسية',
         ),
         BottomNavigationBarItem(
-          icon:
-              Icon(Icons.calendar_today, color: appTheme.colorScheme.secondary),
+          icon: Icon(Icons.calendar_today, color: theme.colorScheme.secondary),
           label: 'البرنامج',
         ),
       ],

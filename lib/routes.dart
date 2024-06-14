@@ -24,16 +24,3 @@ Map<String, WidgetBuilder> routes = {
   "Login/Level/SelectSeason/": (context) => SelectSeasonScreen(),
   "Login/Level/ViewCourseS/": (context) => ViewCourseScreen(),
 };
-
-//.......مش عم تظبط معي  
-// class _SplashScreenState extends State<SplashScreen> {
-//   @override
-//   void initState() {
-//     super.initState();
-//     Timer(Duration(seconds: 3), () {
-//       Navigator.of(context).pushReplacementNamed(routes["/Login"].toString());
-//     });
-//   }
-//الرحوع تم حل المشكلة
-//الانتقال لازم يتغير ل named
-//الانتقال بشكل عام 

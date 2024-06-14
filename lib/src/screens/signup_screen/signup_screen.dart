@@ -1,4 +1,3 @@
-import 'package:university_courses/src/screens/login-screen/login-screen.dart';
 import 'package:university_courses/src/widgets/password_field.dart';
 import 'package:university_courses/src/widgets/username_field.dart';
 import 'package:university_courses/src/widgets/login_button.dart';
@@ -18,12 +17,12 @@ class SignUpScreen extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        scaffoldBackgroundColor: appTheme.colorScheme.secondary,
+        scaffoldBackgroundColor: lightTheme .colorScheme.secondary,
       ),
       home: Scaffold(
         body: Center(
           child: Container(
-            color: appTheme.colorScheme.secondary,
+            color: lightTheme .colorScheme.secondary,
             margin: EdgeInsets.all(20),
             child: Padding(
               padding: const EdgeInsets.all(20.0),
@@ -76,10 +75,6 @@ class SignUpScreen extends StatelessWidget {
                     signupText: 'تسجيل دخول',
                     promptText: 'هل فعلا" لديك حساب؟',
                     onSignupPressed: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => LogInScreen()),
-                      // );
                       Navigator.of(context).pushReplacementNamed('/Login/');
                     },
                   ),

@@ -38,7 +38,7 @@ class _PasswordFieldState extends State<PasswordField> {
         border: OutlineInputBorder(),
         prefixIcon: Icon(
           Icons.lock,
-          color: appTheme.colorScheme.primary,
+          color: lightTheme .colorScheme.primary,
         ),
         filled: true,
         fillColor: Colors.white,

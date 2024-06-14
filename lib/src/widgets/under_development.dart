@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:university_courses/theme/theme.dart';
 
 class UnderDevelopment extends StatelessWidget {
   const UnderDevelopment({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {     final theme = Theme.of(context);
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -17,7 +17,7 @@ class UnderDevelopment extends StatelessWidget {
             child: Icon(
               Icons.construction,
               size: MediaQuery.of(context).size.width * 0.35,
-              color: appTheme.colorScheme.primary,
+              color: theme .colorScheme.primary,
             ),
           ),
           SizedBox(

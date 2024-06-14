@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:university_courses/src/screens/login-screen/login-screen.dart';
-
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -15,12 +13,6 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
       Duration(seconds: 3),
       () {
-        // Navigator.of(context).pushReplacement(
-        //   MaterialPageRoute(
-        //     builder: (context) => LogInScreen(),
-        //   ),
-        // );
-        // Navigator.pushReplacementNamed(context, '/Login/');
         Navigator.of(context).pushReplacementNamed('/Login/');
       },
     );

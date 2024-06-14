@@ -12,7 +12,7 @@ class LoginButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        backgroundColor:appTheme.colorScheme.primary,
+        backgroundColor:lightTheme .colorScheme.primary,
       ),
       child: Text(
         text,

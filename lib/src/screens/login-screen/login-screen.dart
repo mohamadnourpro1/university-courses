@@ -1,5 +1,3 @@
-import 'package:university_courses/src/screens/signup_screen/signup_screen.dart';
-import 'package:university_courses/src/screens/level-screen/level-screen.dart';
 import 'package:university_courses/src/widgets/username_field.dart';
 import 'package:university_courses/src/widgets/password_field.dart';
 import 'package:university_courses/src/widgets/signup_text.dart';
@@ -17,12 +15,12 @@ class LogInScreen extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        scaffoldBackgroundColor: appTheme.colorScheme.secondary,
+        scaffoldBackgroundColor: lightTheme.colorScheme.secondary,
       ),
       home: Scaffold(
         body: Center(
           child: Container(
-            color: appTheme.colorScheme.secondary,
+            color: lightTheme.colorScheme.secondary,
             margin: EdgeInsets.all(20),
             child: Padding(
               padding: const EdgeInsets.all(20.0),
@@ -61,14 +59,8 @@ class LogInScreen extends StatelessWidget {
                   LoginButton(
                     text: 'تسجيل الدخول',
                     onPressed: () {
-                      // Navigator.pushReplacement(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) =>
-                      //           LevelScreen()), //تجريب فقط للانتقال *_*
-                      //   //ادارة الحالة
-                      // );
-                      Navigator.of(context).pushNamed('Login/Level/');
+                      Navigator.of(context)
+                          .pushReplacementNamed('Login/Level/');
                     },
                   ),
                   SizedBox(height: 20),
@@ -76,10 +68,6 @@ class LogInScreen extends StatelessWidget {
                     signupText: 'إنشاء حساب',
                     promptText: 'ليس لديك حساب؟',
                     onSignupPressed: () {
-                      // Navigator.pushReplacement(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => SignUpScreen()),
-                      // );
                       Navigator.of(context).pushNamed('Login/SignUp/');
                     },
                   ),

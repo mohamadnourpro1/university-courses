@@ -1,8 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:university_courses/providers.dart';
-import 'package:university_courses/src/screens/splash-screen/splash-screen.dart';
-import 'package:university_courses/theme/theme.dart';
-import 'package:flutter/material.dart';
 import 'package:university_courses/routes.dart';
 
 void main() {
@@ -14,10 +12,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: providers,
-      child: MaterialApp(
-        theme: appTheme,
-        debugShowCheckedModeBanner: false,
-        routes: routes,
+      child: Consumer<ThemeProvider>(
+        builder: (context, themeProvider, child) {
+          return MaterialApp(
+            theme: themeProvider.currentTheme,
+            debugShowCheckedModeBanner: false,
+            routes: routes,
+          );
+        },
       ),
     );
   }

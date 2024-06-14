@@ -11,7 +11,7 @@ class CalendarTodayScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appTheme.colorScheme.secondary,
+      backgroundColor: lightTheme .colorScheme.secondary,
       appBar: MyAppBar(),
       body: UnderDevelopment(),
       endDrawer: MyEndDrawer(),

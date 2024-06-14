@@ -21,7 +21,7 @@ class SignupText extends StatelessWidget {
           child: Text(
             signupText,
             style: TextStyle(
-              color: appTheme.colorScheme.primary
+              color: lightTheme .colorScheme.primary
             ),
           ),
         ),

@@ -1,36 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:university_courses/providers.dart';
 import 'package:university_courses/src/screens/about-screen/about-screen.dart';
 import 'package:university_courses/src/screens/help-screen/help-screen.dart';
 import 'package:university_courses/src/screens/login-screen/login-screen.dart';
-import 'package:university_courses/theme/theme.dart';
 
 class MyEndDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Drawer(
       child: Container(
-        color: appTheme.colorScheme.primary,
+        color: theme.drawerTheme.backgroundColor,
         child: ListView(
           children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: appTheme.colorScheme.primary,
-              ),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: IconButton(
-                  icon:
-                      Icon(Icons.close, color: appTheme.colorScheme.secondary),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                icon: Icon(Icons.close, color: theme.colorScheme.secondary),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
               ),
             ),
             ListTile(
-              leading: Icon(Icons.exit_to_app,
-                  color: appTheme.colorScheme.secondary),
-              title: Text('تسجيل خروج', style: TextStyle(color: Colors.white)),
+              leading:
+                  Icon(Icons.exit_to_app, color: theme.colorScheme.secondary),
+              title: Text('تسجيل خروج', style: theme.textTheme.bodyMedium),
               onTap: () {
                 Navigator.pushReplacement(
                   context,
@@ -39,8 +35,8 @@ class MyEndDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(Icons.help, color: appTheme.colorScheme.secondary),
-              title: Text('مساعدة', style: TextStyle(color: Colors.white)),
+              leading: Icon(Icons.help, color: theme.colorScheme.secondary),
+              title: Text('مساعدة', style: theme.textTheme.bodyMedium),
               onTap: () {
                 Navigator.push(
                   context,
@@ -49,13 +45,22 @@ class MyEndDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(Icons.info, color: appTheme.colorScheme.secondary),
-              title: Text('حول', style: TextStyle(color: Colors.white)),
+              leading: Icon(Icons.info, color: theme.colorScheme.secondary),
+              title: Text('حول', style: theme.textTheme.bodyMedium),
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => AboutScreen()),
                 );
+              },
+            ),
+            ListTile(
+              leading:
+                  Icon(Icons.brightness_6, color: theme.colorScheme.secondary),
+              title: Text('تغيير الثيم', style: theme.textTheme.bodyMedium),
+              onTap: () {
+                Provider.of<ThemeProvider>(context, listen: false)
+                    .switchTheme();
               },
             ),
           ],
