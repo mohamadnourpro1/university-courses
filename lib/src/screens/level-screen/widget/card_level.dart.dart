@@ -10,8 +10,8 @@ class CardLevelWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double cardHeight = screenHeight / 5;
+       final screenHeight = MediaQuery.of(context).size.height-180;
+
     final theme = Theme.of(context);
 
     return Card(
@@ -24,7 +24,7 @@ class CardLevelWidget extends StatelessWidget {
           Navigator.of(context).pushNamed('Login/Level/SelectSeason/');
         },
         child: Container(
-          height: cardHeight,
+          height: screenHeight * 0.250,
           alignment: Alignment.center,
           child: Text(
             levelText,

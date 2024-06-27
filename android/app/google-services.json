@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "695145906122",
+    "project_id": "iusr-courses",
+    "storage_bucket": "iusr-courses.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:695145906122:android:89fe140b186b8ba2d05933",
+        "android_client_info": {
+          "package_name": "com.example.university_courses"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnNR2chauf82Xg5KQosnBzt2OWIZ7Z-rk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
