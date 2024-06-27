@@ -10,7 +10,7 @@ class LevelScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(showBackButton: false),
+      appBar: MyAppBar(),
       body: ScrollViewWidgetCard(),
       endDrawer: MyEndDrawer(),
       bottomNavigationBar: MyBottomNavigationBar(),

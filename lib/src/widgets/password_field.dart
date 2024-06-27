@@ -41,7 +41,8 @@ class _PasswordFieldState extends State<PasswordField> {
           color: lightTheme .colorScheme.primary,
         ),
         filled: true,
-        fillColor: Colors.white,
+        fillColor: Colors.white,        constraints: BoxConstraints.tightFor(width: 300), 
+
       ),
     );
   }

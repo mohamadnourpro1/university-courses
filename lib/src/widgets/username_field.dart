@@ -19,10 +19,11 @@ class UsernameField extends StatelessWidget {
         border: OutlineInputBorder(),
         prefixIcon: Icon(
           Icons.person,
-          color:lightTheme .colorScheme.primary,
+          color: lightTheme.colorScheme.primary,
         ),
         filled: true,
         fillColor: Colors.white,
+        constraints: BoxConstraints.tightFor(width: 300), 
       ),
     );
   }

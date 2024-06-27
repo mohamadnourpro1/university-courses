@@ -23,17 +23,16 @@ class MyEndDrawer extends StatelessWidget {
                 },
               ),
             ),
-            ListTile(
+             ListTile(
               leading:
-                  Icon(Icons.exit_to_app, color: theme.colorScheme.secondary),
-              title: Text('تسجيل خروج', style: theme.textTheme.bodyMedium),
+                  Icon(Icons.brightness_6, color: theme.colorScheme.secondary),
+              title: Text('تغيير الثيم', style: theme.textTheme.bodyMedium),
               onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => LogInScreen()),
-                );
+                Provider.of<ThemeProvider>(context, listen: false)
+                    .switchTheme();
               },
             ),
+            
             ListTile(
               leading: Icon(Icons.help, color: theme.colorScheme.secondary),
               title: Text('مساعدة', style: theme.textTheme.bodyMedium),
@@ -53,16 +52,18 @@ class MyEndDrawer extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => AboutScreen()),
                 );
               },
-            ),
-            ListTile(
+            ),ListTile(
               leading:
-                  Icon(Icons.brightness_6, color: theme.colorScheme.secondary),
-              title: Text('تغيير الثيم', style: theme.textTheme.bodyMedium),
+                  Icon(Icons.exit_to_app, color: theme.colorScheme.secondary),
+              title: Text('تسجيل خروج', style: theme.textTheme.bodyMedium),
               onTap: () {
-                Provider.of<ThemeProvider>(context, listen: false)
-                    .switchTheme();
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => LogInScreen()),
+                );
               },
             ),
+           
           ],
         ),
       ),
