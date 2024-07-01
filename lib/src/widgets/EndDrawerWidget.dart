@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:university_courses/providers.dart';
 import 'package:university_courses/src/screens/about-screen/about-screen.dart';
+import 'package:university_courses/src/screens/drop_file_screen/drop_file_screen.dart';
 import 'package:university_courses/src/screens/help-screen/help-screen.dart';
 import 'package:university_courses/src/screens/login-screen/login-screen.dart';
 
@@ -30,6 +31,18 @@ class MyEndDrawer extends StatelessWidget {
               onTap: () {
                 Provider.of<ThemeProvider>(context, listen: false)
                     .switchTheme();
+              },
+            ),  ListTile(
+              leading:
+                  Icon(Icons.book_sharp, color: theme.colorScheme.secondary),
+              title: Text('رفع محاضرات', style: theme.textTheme.bodyMedium),
+              onTap: () {
+                 
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DropFileScreen()),
+                );
+              
               },
             ),
             
