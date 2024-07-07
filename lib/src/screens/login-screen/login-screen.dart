@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:university_courses/src/widgets/username_field.dart';
 import 'package:university_courses/src/widgets/password_field.dart';
 import 'package:university_courses/src/widgets/signup_text.dart';
@@ -58,9 +59,22 @@ class LogInScreen extends StatelessWidget {
                   SizedBox(height: 20),
                   LoginButton(
                     text: 'تسجيل الدخول',
-                    onPressed: () {
-                      Navigator.of(context)
-                          .pushReplacementNamed('Login/Level/');
+                    onPressed: () async {
+                      // try {
+                      //   await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                      //     email: usernameController.text,
+                      //     password: passwordController.text,
+                      //   );
+                        Navigator.of(context).pushReplacementNamed('Login/Level/');
+                      // } on FirebaseAuthException catch (e) {
+                      //   if (e.code == 'weak-password') {
+                      //     print('The password provided is too weak.');
+                      //   } else if (e.code == 'email-already-in-use') {
+                      //     print('The account already exists for that email.');
+                      //   }
+                      // } catch (e) {
+                      //   print(e);
+                      // }
                     },
                   ),
                   SizedBox(height: 20),
@@ -80,3 +94,4 @@ class LogInScreen extends StatelessWidget {
     );
   }
 }
+
