@@ -13,8 +13,20 @@ class _BodyDropWidgetState extends State<BodyDropWidget> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _lectureNumberController = TextEditingController();
   final TextEditingController _courseCodeController = TextEditingController();
+
   String? _filePath;
   String? _fileName;
+
+  @override
+  void initState() {
+    super.initState();
+    _courseCodeController.addListener(() {
+      _courseCodeController.value = _courseCodeController.value.copyWith(
+        text: _courseCodeController.text.toUpperCase(),
+        selection: _courseCodeController.selection,
+      );
+    });
+  }
 
   void _clearFields() {
     setState(() {
@@ -28,21 +40,64 @@ class _BodyDropWidgetState extends State<BodyDropWidget> {
 
   Future<void> _uploadLectureData(BuildContext context) async {
     String title = _titleController.text;
-    String lectureNumber = _lectureNumberController.text;
-    String courseCode = _courseCodeController.text;
+    String lectureNumberStr = _lectureNumberController.text;
+    String courseCode = _courseCodeController.text.toUpperCase();
 
-    if (title.isEmpty || lectureNumber.isEmpty || courseCode.isEmpty || _filePath == null) {
+    // Check if title, lecture number, course code, and file path are not empty
+    if (title.isEmpty || lectureNumberStr.isEmpty || courseCode.isEmpty || _filePath == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('الرجاء إدخال عنوان، رقم المحاضرة، رمز المادة وتحميل ملف PDF'),
-        backgroundColor: Colors.red,
+          backgroundColor: Colors.red,
         ),
       );
       return;
     }
 
-    final snackBar = SnackBar(        backgroundColor: Colors.grey,
+    // Check if lecture number is between 1 and 20
+    int? lectureNumber = int.tryParse(lectureNumberStr);
+    if (lectureNumber == null || lectureNumber < 1 || lectureNumber > 20) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('رقم المحاضرة يجب أن يكون بين 1 و 20'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
 
+    // Check if the first character of courseCode is '#'
+    if (courseCode.isEmpty || courseCode[0] != '#') {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('رمز المادة يجب أن يبدأ بـ #'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+  if (courseCode.length != 7) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('رمز المادة يجب أن يتكون من 6 أحرف'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+    // Check if title is not more than 50 characters
+    if (title.length > 50) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('عنوان المحاضرة يجب ألا يتجاوز 50 حرفًا'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    final snackBar = SnackBar(
+      backgroundColor: Colors.grey,
       content: Text('جاري تحميل المحاضرة...'),
       duration: Duration(days: 1), // Make it long-lasting
     );
@@ -50,17 +105,22 @@ class _BodyDropWidgetState extends State<BodyDropWidget> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
     try {
-      var refStorage = FirebaseStorage.instance.ref().child('/LEVEL3/${_fileName!}');
-      UploadTask uploadTask = refStorage.putFile(File(_filePath!));  await uploadTask;
-      
-  
-    
+      // Parse course code
+      final level = courseCode.substring(1, 3); // L1
+      final semester = courseCode.substring(3, 5); // S1
+      final courseName = courseCode.substring(5); // FLT
+
+      var refStorage = FirebaseStorage.instance
+          .ref()
+          .child('/$level/$semester/$courseName/${_fileName!}');
+      UploadTask uploadTask = refStorage.putFile(File(_filePath!));
+      await uploadTask;
 
       ScaffoldMessenger.of(context).hideCurrentSnackBar(); // Hide the loading snackbar
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(        backgroundColor: Colors.green,
-
+        SnackBar(
+          backgroundColor: Colors.green,
           content: Text('تم إرسال البيانات بنجاح'),
         ),
       );
@@ -70,8 +130,8 @@ class _BodyDropWidgetState extends State<BodyDropWidget> {
       ScaffoldMessenger.of(context).hideCurrentSnackBar(); // Hide the loading snackbar
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(        backgroundColor: Colors.red,
-
+        SnackBar(
+          backgroundColor: Colors.red,
           content: Text('حدث خطأ أثناء رفع الملف'),
         ),
       );
@@ -115,7 +175,7 @@ class _BodyDropWidgetState extends State<BodyDropWidget> {
                   MyTextField(
                     controller: _courseCodeController,
                     labelText: "رمز المادة",
-                    hintText: "#LYSN",
+                    hintText: "#L1S1FLT",
                   ),
                   SizedBox(height: 20),
                   MyTextField(
