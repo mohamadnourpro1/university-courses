@@ -12,7 +12,12 @@
           "package_name": "com.example.university_courses"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "695145906122-adcaatn46r3tsg3v8o0evhnh4v9qfkeq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBnNR2chauf82Xg5KQosnBzt2OWIZ7Z-rk"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "695145906122-adcaatn46r3tsg3v8o0evhnh4v9qfkeq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

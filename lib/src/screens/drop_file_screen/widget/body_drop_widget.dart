@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:university_courses/src/models/send_data_base/lecture_data%20.dart';
 import 'package:university_courses/src/widgets/text_field.dart';
-import 'dart:io';
-import 'package:firebase_storage/firebase_storage.dart';
+
+import 'package:university_courses/src/models/send_data_base/firebase_uploader.dart';
 
 class BodyDropWidget extends StatefulWidget {
   @override
@@ -43,7 +44,6 @@ class _BodyDropWidgetState extends State<BodyDropWidget> {
     String lectureNumberStr = _lectureNumberController.text;
     String courseCode = _courseCodeController.text.toUpperCase();
 
-    // Check if title, lecture number, course code, and file path are not empty
     if (title.isEmpty || lectureNumberStr.isEmpty || courseCode.isEmpty || _filePath == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -54,7 +54,6 @@ class _BodyDropWidgetState extends State<BodyDropWidget> {
       return;
     }
 
-    // Check if lecture number is between 1 and 20
     int? lectureNumber = int.tryParse(lectureNumberStr);
     if (lectureNumber == null || lectureNumber < 1 || lectureNumber > 20) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -66,7 +65,6 @@ class _BodyDropWidgetState extends State<BodyDropWidget> {
       return;
     }
 
-    // Check if the first character of courseCode is '#'
     if (courseCode.isEmpty || courseCode[0] != '#') {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -76,7 +74,7 @@ class _BodyDropWidgetState extends State<BodyDropWidget> {
       );
       return;
     }
-  if (courseCode.length != 7) {
+    if (courseCode.length != 7) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('رمز المادة يجب أن يتكون من 6 أحرف'),
@@ -85,7 +83,6 @@ class _BodyDropWidgetState extends State<BodyDropWidget> {
       );
       return;
     }
-    // Check if title is not more than 50 characters
     if (title.length > 50) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -99,24 +96,22 @@ class _BodyDropWidgetState extends State<BodyDropWidget> {
     final snackBar = SnackBar(
       backgroundColor: Colors.grey,
       content: Text('جاري تحميل المحاضرة...'),
-      duration: Duration(days: 1), // Make it long-lasting
+      duration: Duration(days: 1),
     );
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
     try {
-      // Parse course code
-      final level = courseCode.substring(1, 3); // L1
-      final semester = courseCode.substring(3, 5); // S1
-      final courseName = courseCode.substring(5); // FLT
+      final lectureData = LectureData(
+        title: title,
+        lectureNumber: lectureNumber,
+        courseCode: courseCode,
+        filePath: _filePath!,
+      );
 
-      var refStorage = FirebaseStorage.instance
-          .ref()
-          .child('/$level/$semester/$courseName/${_fileName!}');
-      UploadTask uploadTask = refStorage.putFile(File(_filePath!));
-      await uploadTask;
+      await uploadLectureToFirebase(lectureData);
 
-      ScaffoldMessenger.of(context).hideCurrentSnackBar(); // Hide the loading snackbar
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -127,7 +122,7 @@ class _BodyDropWidgetState extends State<BodyDropWidget> {
 
       _clearFields();
     } catch (e) {
-      ScaffoldMessenger.of(context).hideCurrentSnackBar(); // Hide the loading snackbar
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -136,6 +131,11 @@ class _BodyDropWidgetState extends State<BodyDropWidget> {
         ),
       );
     }
+  }
+
+  Future<void> uploadLectureToFirebase(LectureData lectureData) async {
+    final uploader = FirebaseUploader();
+    await uploader.uploadLectureToFirebase(lectureData);
   }
 
   @override
