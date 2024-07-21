@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:university_courses/src/screens/view_course_screen/view_course_screen.dart';
 class CardSelectSeasonWidget extends StatelessWidget {
   const CardSelectSeasonWidget({super.key});
 
@@ -37,12 +36,7 @@ class CardSelectSeasonWidget extends StatelessWidget {
               color: theme.colorScheme.primary,
               child: InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ViewCourseScreen(),
-                    ),
-                  );
+                  Navigator.of(context).pushNamed('Login/Level/ViewLevel/');
                 },
                 child: Container(
                   height: screenHeight * 0.5, 

@@ -1,26 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:university_courses/src/models/send_data_base/lecture_data%20.dart';
+import 'package:university_courses/src/models/send_data_base/upload_lecture.dart';
 import 'package:university_courses/src/widgets/text_field.dart';
-
-import 'package:university_courses/src/models/send_data_base/firebase_uploader.dart';
-
 class BodyDropWidget extends StatefulWidget {
   @override
   _BodyDropWidgetState createState() => _BodyDropWidgetState();
 }
-
 class _BodyDropWidgetState extends State<BodyDropWidget> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _lectureNumberController = TextEditingController();
   final TextEditingController _courseCodeController = TextEditingController();
-
   String? _filePath;
   String? _fileName;
 
   @override
   void initState() {
     super.initState();
+
     _courseCodeController.addListener(() {
       _courseCodeController.value = _courseCodeController.value.copyWith(
         text: _courseCodeController.text.toUpperCase(),
@@ -43,7 +39,6 @@ class _BodyDropWidgetState extends State<BodyDropWidget> {
     String title = _titleController.text;
     String lectureNumberStr = _lectureNumberController.text;
     String courseCode = _courseCodeController.text.toUpperCase();
-
     if (title.isEmpty || lectureNumberStr.isEmpty || courseCode.isEmpty || _filePath == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -53,7 +48,6 @@ class _BodyDropWidgetState extends State<BodyDropWidget> {
       );
       return;
     }
-
     int? lectureNumber = int.tryParse(lectureNumberStr);
     if (lectureNumber == null || lectureNumber < 1 || lectureNumber > 20) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -77,7 +71,7 @@ class _BodyDropWidgetState extends State<BodyDropWidget> {
     if (courseCode.length != 7) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('رمز المادة يجب أن يتكون من 6 أحرف'),
+          content: Text('رمز المادة يجب أن يتكون من 7 أحرف'),
           backgroundColor: Colors.red,
         ),
       );
@@ -101,24 +95,25 @@ class _BodyDropWidgetState extends State<BodyDropWidget> {
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-    try {
-      final lectureData = LectureData(
-        title: title,
-        lectureNumber: lectureNumber,
-        courseCode: courseCode,
-        filePath: _filePath!,
-      );
+ 
+ try {
+  LectureData lectureData = LectureData(
+    title: title,
+    lectureNumber: lectureNumber,
+    courseCode: courseCode,
+    filePath: _filePath!,
+  );
+  
+  await lectureData.createLecture();
 
-      await uploadLectureToFirebase(lectureData);
+  ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: Colors.green,
-          content: Text('تم إرسال البيانات بنجاح'),
-        ),
-      );
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      backgroundColor: Colors.green,
+      content: Text('تم إرسال البيانات بنجاح'),
+    ),
+  );
 
       _clearFields();
     } catch (e) {
@@ -127,25 +122,18 @@ class _BodyDropWidgetState extends State<BodyDropWidget> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: Colors.red,
-          content: Text('حدث خطأ أثناء رفع الملف'),
+          content: Text('حدث خطأ أثناء رفع الملف: $e'),
         ),
       );
     }
   }
 
-  Future<void> uploadLectureToFirebase(LectureData lectureData) async {
-    final uploader = FirebaseUploader();
-    await uploader.uploadLectureToFirebase(lectureData);
-  }
-
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
-        color: theme.colorScheme.secondary,
+        color: Theme.of(context).colorScheme.secondary,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Center(
@@ -204,7 +192,7 @@ class _BodyDropWidgetState extends State<BodyDropWidget> {
                     },
                     child: Text('تحميل الملف'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: theme.colorScheme.primary,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
                       foregroundColor: Colors.white,
                       minimumSize: Size(150, 40),
                     ),
@@ -224,7 +212,7 @@ class _BodyDropWidgetState extends State<BodyDropWidget> {
                     onPressed: () => _uploadLectureData(context),
                     child: Text('ارسال الملف'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: theme.colorScheme.primary,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
                       foregroundColor: Colors.white,
                       minimumSize: Size(200, 50),
                     ),
@@ -237,4 +225,5 @@ class _BodyDropWidgetState extends State<BodyDropWidget> {
       ),
     );
   }
+  
 }

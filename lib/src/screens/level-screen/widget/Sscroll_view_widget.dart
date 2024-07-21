@@ -13,7 +13,6 @@ class ScrollViewWidgetCard extends StatelessWidget {
           children: [
             CardLevelWidget(
               levelText: "المستوى الأول",
-              //level: 1, state management
             ),
             CardLevelWidget(
               levelText: "المستوى الثاني",

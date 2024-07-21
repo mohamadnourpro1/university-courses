@@ -10,6 +10,7 @@ import 'package:university_courses/src/screens/signup_screen/signup_screen.dart'
 import 'package:university_courses/src/screens/splash-screen/splash-screen.dart';
 import 'package:university_courses/src/screens/view_course_screen/view_course_screen.dart';
 import 'package:university_courses/src/screens/view_level_screen/View_level_screen.dart';
+import 'package:university_courses/src/screens/view_pdf_screen/view_pdf_screen.dart';
 
 Map<String, WidgetBuilder> routes = {
   "/": (context) => SplashScreen(),
@@ -23,4 +24,5 @@ Map<String, WidgetBuilder> routes = {
   "Login/Level/ViewLevel/": (context) => ViewLevelScreen(),
   "Login/Level/SelectSeason/": (context) => SelectSeasonScreen(),
   "Login/Level/ViewCourseS/": (context) => ViewCourseScreen(),
+  "Login/Level/ViewLevel/ViewPdf/": (context) => ViewPdfScreen(),
 };

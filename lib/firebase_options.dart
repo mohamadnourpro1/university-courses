@@ -59,4 +59,5 @@ class DefaultFirebaseOptions {
     projectId: 'iusr-courses',
     storageBucket: 'iusr-courses.appspot.com',
   );
+
 }
