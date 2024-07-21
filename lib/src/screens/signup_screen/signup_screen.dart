@@ -1,3 +1,4 @@
+import 'package:university_courses/src/widgets/email_field.dart';
 import 'package:university_courses/src/widgets/password_field.dart';
 import 'package:university_courses/src/widgets/username_field.dart';
 import 'package:university_courses/src/widgets/login_button.dart';
@@ -9,8 +10,8 @@ import 'package:flutter/widgets.dart';
 class SignUpScreen extends StatelessWidget {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController ConfirmpasswordController =
-      TextEditingController();
+  final TextEditingController ConfirmpasswordController =TextEditingController();
+  final TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +50,12 @@ class SignUpScreen extends StatelessWidget {
                   UsernameField(
                     controller: usernameController,
                     labelText: 'اسم المستخدم',
+                    onChanged: (value) {},
+                  ),                  SizedBox(height: 20),
+
+                    EmailField(
+                    controller: emailController,
+                    labelText: 'الايميل',
                     onChanged: (value) {},
                   ),
                   SizedBox(height: 20),

@@ -1,4 +1,4 @@
-import 'package:university_courses/src/widgets/username_field.dart';
+import 'package:university_courses/src/widgets/email_field.dart';
 import 'package:university_courses/src/widgets/password_field.dart';
 import 'package:university_courses/src/widgets/signup_text.dart';
 import 'package:university_courses/src/widgets/login_button.dart';
@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class LogInScreen extends StatelessWidget {
-  final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +44,9 @@ class LogInScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 20),
-                  UsernameField(
-                    controller: usernameController,
-                    labelText: 'اسم المستخدم',
+                  EmailField(
+                    controller: emailController,
+                    labelText: 'الايميل',
                     onChanged: (value) {},
                   ),
                   SizedBox(height: 20),
