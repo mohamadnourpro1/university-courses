@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:http/http.dart' as http;
 import 'package:firebase_storage/firebase_storage.dart';
 
 class LectureData {
@@ -16,8 +16,6 @@ class LectureData {
   });
 
   Map<String, dynamic> toMap() {
-  
-
     return {
       'lecturetitle': title,
       'lectureNumber': lectureNumber,
@@ -25,7 +23,8 @@ class LectureData {
       'filePath': filePath,
     };
   }
-Future<String> _uploadToFirebase() async {
+
+  Future<String> _uploadToFirebase() async {
     try {
       final level = courseCode.substring(1, 3); // L1
       final semester = courseCode.substring(3, 5); // S1
@@ -40,12 +39,12 @@ Future<String> _uploadToFirebase() async {
 
       final downloadUrl = await refStorage.getDownloadURL();
       return downloadUrl;
-    } 
-    catch (e) {
+    } catch (e) {
       print('Error uploading lecture: $e');
       throw e;
     }
   }
+
   Future<void> createLecture() async {
     try {
       final downloadUrl = await _uploadToFirebase();
@@ -56,21 +55,30 @@ Future<String> _uploadToFirebase() async {
         courseCode: courseCode,
         filePath: downloadUrl,
       );
-    print("....................................................................................................");
-    print("Title: $title");
-    print("Lecture Number: $lectureNumber");
-    print("Course Code: $courseCode");
-    print("File Path: $filePath");
-    print("....................................................................................................");
-     
 
-     DocumentReference ref = FirebaseFirestore.instance.collection('ITC-IUSR').doc();
-      await ref.set(lecture.toMap());
-    }  catch (e) {
+      print("....................................................................................................");
+      print("Title: $title");
+      print("Lecture Number: $lectureNumber");
+      print("Course Code: $courseCode");
+      print("File Path: $filePath");
+      print("....................................................................................................");
+
+      var url = Uri.parse('http://192.168.0.109:8000/api/auth/file');
+      var response = await http.post(url, body: {
+        'title': lecture.title,
+        'lecture_number': lecture.lectureNumber.toString(),
+        'course_code': lecture.courseCode,
+        'file_path': lecture.filePath,
+      });
+
+      if (response.statusCode == 200) {
+        print('Lecture data sent successfully');
+      } else {
+        print('Failed to send lecture data: ${response.body}');
+      }
+    } catch (e) {
       print('Error creating lecture: $e');
       throw e;
     }
-   }
-
-  
+  }
 }
