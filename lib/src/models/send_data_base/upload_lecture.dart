@@ -95,33 +95,29 @@ class LectureData {
       throw e;
     }
   }
+static Future<List<LectureData>> getALLlectureData() async {
+  try {
+    final response = await http.get(Uri.parse('http://192.168.0.102:8000/api/auth/file'));
 
-  static Future<void> getALLlectureData() async {
-    try {
-      final response = await http.get(Uri.parse('http://192.168.0.102:8000/api/auth/file'));
+    if (response.statusCode == 200) {
+      final jsonResponse = jsonDecode(response.body);
 
-      if (response.statusCode == 200) {
-        print('Response body: ${response.body}');
+      if (jsonResponse is Map<String, dynamic>) {
+        if (jsonResponse.containsKey('data') && jsonResponse['data'] is List<dynamic>) {
+          final jsonData = jsonResponse['data'] as List<dynamic>;
 
-        final jsonResponse = jsonDecode(response.body);
-
-        if (jsonResponse is Map<String, dynamic>) {
-          if (jsonResponse.containsKey('data') && jsonResponse['data'] is List<dynamic>) {
-            final jsonData = jsonResponse['data'] as List<dynamic>;
-
-            List<LectureData> lectures = [];
-            for (var item in jsonData) {
-              if (item is Map<String, dynamic>) {
-                try {
-                  lectures.add(LectureData.fromJson(item));
-                } catch (e) {
-                  print('Error parsing lecture data: $e');
-                }
-              } else {
-                print('Unexpected item type: ${item.runtimeType}');
+          List<LectureData> lectures = [];
+          for (var item in jsonData) {
+            if (item is Map<String, dynamic>) {
+              try {
+                lectures.add(LectureData.fromJson(item));
+              } catch (e) {
+                print('Error parsing lecture data: $e');
               }
+            } else {
+              print('Unexpected item type: ${item.runtimeType}');
             }
-
+            
             for (var lecture in lectures) {
               print("....................................................................................................");
               print("العنوان: ${lecture.title}");
@@ -130,17 +126,38 @@ class LectureData {
               print("مسار الملف: ${lecture.filePath}");
               print("....................................................................................................");
             }
-          } else {
-            print("الاستجابة لا تحتوي على قائمة تحت المفتاح 'data'.");
           }
+
+          return lectures;
         } else {
-          print("الاستجابة ليست خريطة.");
+          print("الاستجابة لا تحتوي على قائمة تحت المفتاح 'data'.");
+          return [];
         }
       } else {
-        print("فشل في جلب المحاضرات. حالة الاستجابة: ${response.statusCode}");
+        print("الاستجابة ليست خريطة.");
+        return [];
       }
-    } catch (e) {
-      print('خطأ في جلب بيانات المحاضرات: $e');
+    } else {
+      print("فشل في جلب المحاضرات. حالة الاستجابة: ${response.statusCode}");
+      return [];
     }
+  } catch (e) {
+    print('خطأ في جلب بيانات المحاضرات: $e');
+    return [];
   }
 }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
