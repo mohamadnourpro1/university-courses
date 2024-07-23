@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:university_courses/src/models/send_data_base/upload_lecture.dart';
 import 'package:university_courses/src/widgets/text_field.dart';
+
 class BodyDropWidget extends StatefulWidget {
   @override
   _BodyDropWidgetState createState() => _BodyDropWidgetState();
 }
+
 class _BodyDropWidgetState extends State<BodyDropWidget> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _lectureNumberController = TextEditingController();
@@ -59,19 +61,10 @@ class _BodyDropWidgetState extends State<BodyDropWidget> {
       return;
     }
 
-    if (courseCode.isEmpty || courseCode[0] != '#') {
+    if (courseCode.length != 4) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('رمز المادة يجب أن يبدأ بـ #'),
-          backgroundColor: Colors.red,
-        ),
-      );
-      return;
-    }
-    if (courseCode.length != 7) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('رمز المادة يجب أن يتكون من 7 أحرف'),
+          content: Text('رمز المادة يجب أن يتكون من 4 أحرف'),
           backgroundColor: Colors.red,
         ),
       );
@@ -90,30 +83,38 @@ class _BodyDropWidgetState extends State<BodyDropWidget> {
     final snackBar = SnackBar(
       backgroundColor: Colors.grey,
       content: Text('جاري تحميل المحاضرة...'),
-      duration: Duration(days: 1),
+      duration: Duration(seconds: 30),
     );
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
- 
- try {
-  LectureData lectureData = LectureData(
-    title: title,
-    lectureNumber: lectureNumber,
-    courseCode: courseCode,
-    filePath: _filePath!,
-  );
-  
-  await lectureData.createLecture();
+    Future.delayed(Duration(seconds: 30), () {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.red,
+          content: Text('لم يتم إرسال الملف بسبب عدم الوصول إلى الخادم'),
+        ),
+      );
+    });
 
-  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    try {
+      LectureData lectureData = LectureData(
+        title: title,
+        lectureNumber: lectureNumber,
+        courseCode: courseCode,
+        filePath: _filePath!,
+      );
 
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      backgroundColor: Colors.green,
-      content: Text('تم إرسال البيانات بنجاح'),
-    ),
-  );
+      await lectureData.createLecture();
+
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.green,
+          content: Text('تم إرسال البيانات بنجاح'),
+        ),
+      );
 
       _clearFields();
     } catch (e) {
@@ -163,7 +164,7 @@ class _BodyDropWidgetState extends State<BodyDropWidget> {
                   MyTextField(
                     controller: _courseCodeController,
                     labelText: "رمز المادة",
-                    hintText: "#L1S1FLT",
+                    hintText: "11FL",
                   ),
                   SizedBox(height: 20),
                   MyTextField(
@@ -225,5 +226,4 @@ class _BodyDropWidgetState extends State<BodyDropWidget> {
       ),
     );
   }
-  
 }

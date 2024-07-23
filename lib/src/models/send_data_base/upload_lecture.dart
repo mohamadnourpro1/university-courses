@@ -26,9 +26,9 @@ class LectureData {
 
   Future<String> _uploadToFirebase() async {
     try {
-      final level = courseCode.substring(1, 3); // L1
-      final semester = courseCode.substring(3, 5); // S1
-      final courseName = courseCode.substring(5); // FLT
+      final level = courseCode.substring(0, 1); // 1
+      final semester = courseCode.substring(1, 2); // 2
+      final courseName = courseCode.substring(2); // FL
 
       var refStorage = FirebaseStorage.instance.ref().child(
           '/$level/$semester/$courseName/${filePath.split('/').last}');
@@ -63,7 +63,8 @@ class LectureData {
       print("File Path: $filePath");
       print("....................................................................................................");
 
-      var url = Uri.parse('http://192.168.0.109:8000/api/auth/file');
+      var url = Uri.parse('http://192.168.1.110:8000/api/auth/file');
+
       var response = await http.post(url, body: {
         'title': lecture.title,
         'lecture_number': lecture.lectureNumber.toString(),
