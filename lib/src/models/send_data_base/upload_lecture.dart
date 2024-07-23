@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:firebase_storage/firebase_storage.dart';
@@ -24,6 +25,15 @@ class LectureData {
     };
   }
 
+  factory LectureData.fromJson(Map<String, dynamic> json) {
+    return LectureData(
+      title: json['title'] ?? 'غير متوفر',
+      lectureNumber: json['lecture_number'] ?? 0,
+      courseCode: json['course_code'] ?? 'غير متوفر',
+      filePath: json['file_path'] ?? 'غير متوفر',
+    );
+  }
+
   Future<String> _uploadToFirebase() async {
     try {
       final level = courseCode.substring(0, 1); // 1
@@ -34,7 +44,6 @@ class LectureData {
           '/$level/$semester/$courseName/${filePath.split('/').last}');
 
       UploadTask uploadTask = refStorage.putFile(File(filePath));
-
       await uploadTask;
 
       final downloadUrl = await refStorage.getDownloadURL();
@@ -63,26 +72,75 @@ class LectureData {
       print("File Path: $filePath");
       print("....................................................................................................");
 
-  var url = Uri.parse('http://192.168.0.102:8000/api/auth/file');
-  //       var url = Uri.parse('http://192.168.0.102:8000/api/auth/file');
-
-
-
-      var response = await http.post(url, body: {
-        'title': lecture.title,
-        'lecture_number': lecture.lectureNumber.toString(),
-        'course_code': lecture.courseCode,
-        'file_path': lecture.filePath,
-      });
+      var url = Uri.parse('http://192.168.0.102:8000/api/auth/file');
+      var response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: {
+          'title': lecture.title,
+          'lecture_number': lecture.lectureNumber.toString(),
+          'course_code': lecture.courseCode,
+          'file_path': lecture.filePath,
+        },
+      );
 
       if (response.statusCode == 200) {
         print('Lecture data sent successfully');
+        await getALLlectureData();
       } else {
         print('Failed to send lecture data: ${response.body}');
       }
     } catch (e) {
       print('Error creating lecture: $e');
       throw e;
+    }
+  }
+
+  static Future<void> getALLlectureData() async {
+    try {
+      final response = await http.get(Uri.parse('http://192.168.0.102:8000/api/auth/file'));
+
+      if (response.statusCode == 200) {
+        print('Response body: ${response.body}');
+
+        final jsonResponse = jsonDecode(response.body);
+
+        if (jsonResponse is Map<String, dynamic>) {
+          if (jsonResponse.containsKey('data') && jsonResponse['data'] is List<dynamic>) {
+            final jsonData = jsonResponse['data'] as List<dynamic>;
+
+            List<LectureData> lectures = [];
+            for (var item in jsonData) {
+              if (item is Map<String, dynamic>) {
+                try {
+                  lectures.add(LectureData.fromJson(item));
+                } catch (e) {
+                  print('Error parsing lecture data: $e');
+                }
+              } else {
+                print('Unexpected item type: ${item.runtimeType}');
+              }
+            }
+
+            for (var lecture in lectures) {
+              print("....................................................................................................");
+              print("العنوان: ${lecture.title}");
+              print("رقم المحاضرة: ${lecture.lectureNumber}");
+              print("رمز الدورة: ${lecture.courseCode}");
+              print("مسار الملف: ${lecture.filePath}");
+              print("....................................................................................................");
+            }
+          } else {
+            print("الاستجابة لا تحتوي على قائمة تحت المفتاح 'data'.");
+          }
+        } else {
+          print("الاستجابة ليست خريطة.");
+        }
+      } else {
+        print("فشل في جلب المحاضرات. حالة الاستجابة: ${response.statusCode}");
+      }
+    } catch (e) {
+      print('خطأ في جلب بيانات المحاضرات: $e');
     }
   }
 }
