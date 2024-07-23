@@ -63,7 +63,10 @@ class LectureData {
       print("File Path: $filePath");
       print("....................................................................................................");
 
-      var url = Uri.parse('http://192.168.1.110:8000/api/auth/file');
+  var url = Uri.parse('http://192.168.0.102:8000/api/auth/file');
+  //       var url = Uri.parse('http://192.168.0.102:8000/api/auth/file');
+
+
 
       var response = await http.post(url, body: {
         'title': lecture.title,
