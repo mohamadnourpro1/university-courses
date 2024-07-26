@@ -9,4 +9,11 @@ class nameCourses {
 };
 
  
+ static Map<String, String> Level1Season2 = {
+ 
+   'لغة تخصصية': '',
+  'عربي': '',
+  'برمجة2': '',
+  // 'شبكات': '',
+};
 }
