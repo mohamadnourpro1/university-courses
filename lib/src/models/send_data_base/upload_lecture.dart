@@ -72,7 +72,7 @@ class LectureData {
       print("File Path: $filePath");
       print("....................................................................................................");
 
-      var url = Uri.parse('http://192.168.0.102:8000/api/auth/file');
+      var url = Uri.parse('http://192.168.0.105:8000/api/auth/file');
       var response = await http.post(
         url,
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -86,7 +86,7 @@ class LectureData {
 
       if (response.statusCode == 200) {
         print('Lecture data sent successfully');
-        await getALLlectureData();
+        await getALLlectureData('http://192.168.0.105:8000/api/auth/file');
       } else {
         print('Failed to send lecture data: ${response.body}');
       }
@@ -95,9 +95,9 @@ class LectureData {
       throw e;
     }
   }
-static Future<List<LectureData>> getALLlectureData() async {
+static Future<List<LectureData>> getALLlectureData(String url) async {
   try {
-    final response = await http.get(Uri.parse('http://192.168.0.102:8000/api/auth/file'));
+    final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
       final jsonResponse = jsonDecode(response.body);
@@ -144,6 +144,56 @@ static Future<List<LectureData>> getALLlectureData() async {
   } catch (e) {
     print('خطأ في جلب بيانات المحاضرات: $e');
     return [];
+  }
+}
+
+
+
+
+
+
+
+
+static Future<LectureData?> getLectureData() async {
+  try {
+    final response = await http.get(Uri.parse('http://127.0.0.1:8000/api/auth/showfile?course_code=fl'));
+
+    if (response.statusCode == 200) {
+      final jsonResponse = jsonDecode(response.body);
+
+      if (jsonResponse is Map<String, dynamic>) {
+        if (jsonResponse.containsKey('data') && jsonResponse['data'] is Map<String, dynamic>) {
+          final jsonData = jsonResponse['data'] as Map<String, dynamic>;
+
+          try {
+            LectureData lecture = LectureData.fromJson(jsonData);
+            print("....................................................................................................");
+            print("العنوان: ${lecture.title}");
+            print("رقم المحاضرة: ${lecture.lectureNumber}");
+            print("رمز الدورة: ${lecture.courseCode}");
+            print("مسار الملف: ${lecture.filePath}");
+            print("....................................................................................................");
+
+            return lecture;
+          } catch (e) {
+            print('Error parsing lecture data: $e');
+            return null;
+          }
+        } else {
+          print("الاستجابة لا تحتوي على بيانات تحت المفتاح 'data' أو البيانات ليست خريطة.");
+          return null;
+        }
+      } else {
+        print("الاستجابة ليست خريطة.");
+        return null;
+      }
+    } else {
+      print("فشل في جلب بيانات المحاضرة. حالة الاستجابة: ${response.statusCode}");
+      return null;
+    }
+  } catch (e) {
+    print('خطأ في جلب بيانات المحاضرة: $e');
+    return null;
   }
 }
 

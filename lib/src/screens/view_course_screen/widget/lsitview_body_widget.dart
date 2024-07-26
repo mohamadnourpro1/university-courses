@@ -21,7 +21,7 @@ class _LsitviewBodyWidgetState extends State<LsitviewBodyWidget> {
   Future<void> _loadLectures() async {
     try {
       // جلب بيانات المحاضرات
-      await LectureData.getALLlectureData().then((lectures) {
+      await LectureData.getALLlectureData("http://192.168.0.105:8000/api/auth/showfile?course_code=ts").then((lectures) {
         setState(() {
           _lectures = lectures;
           _isLoading = false; 
