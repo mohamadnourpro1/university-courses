@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 
 class CardLevelWidget extends StatelessWidget {
   final String levelText;
+  final Map<String, Map<String, String>> selectedLevelShow;
 
   const CardLevelWidget({
     Key? key,
     required this.levelText,
+    required this.selectedLevelShow,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height - 180;
@@ -18,6 +21,7 @@ class CardLevelWidget extends StatelessWidget {
         onTap: () {
           Navigator.of(context).pushNamed(
             'Login/Level/SelectSeason/',
+            arguments: selectedLevelShow,
           );
         },
         child: Container(
@@ -25,7 +29,6 @@ class CardLevelWidget extends StatelessWidget {
           alignment: Alignment.center,
           child: Text(
             levelText,
-            
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:university_courses/src/models/names_cours/name_courses.dart';
 
 class CardSelectSeasonWidget extends StatelessWidget {
   const CardSelectSeasonWidget({super.key});
@@ -9,58 +8,73 @@ class CardSelectSeasonWidget extends StatelessWidget {
     final theme = Theme.of(context);
     final screenHeight = MediaQuery.of(context).size.height - 165;
 
-    return Container(
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Card(
-              color: theme.colorScheme.primary,
-              child: InkWell(
-                onTap: () {
-                  Navigator.of(context).pushNamed(
-                    'Login/Level/ViewLevel/',
-                    arguments: nameCourses.Level1Season1,
-                  );
-                },
-                child: Container(
-                  height: screenHeight * 0.5,
-                  alignment: Alignment.center,
-                  child: Text(
-                    " الفصل الاول",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
+    final dynamic selectedLevelShow = ModalRoute.of(context)!.settings.arguments;
+
+    Map<String, String> season1 = {};
+    Map<String, String> season2 = {};
+
+    if (selectedLevelShow is Map<String, Map<String, String>>) {
+      season1 = selectedLevelShow['Season1'] ?? {};
+      season2 = selectedLevelShow['Season2'] ?? {};
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Select Season'),
+      ),
+      body: Container(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Card(
+                color: theme.colorScheme.primary,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(
+                      'Login/Level/ViewLevel/',
+                      arguments: season1,
+                    );
+                  },
+                  child: Container(
+                    height: screenHeight * 0.5,
+                    alignment: Alignment.center,
+                    child: Text(
+                      "الفصل الأول",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            Card(
-              color: theme.colorScheme.primary,
-              child: InkWell(
-                onTap: () {
-                  Navigator.of(context).pushNamed(
-                    'Login/Level/ViewLevel/',
-                    arguments: nameCourses.Level1Season2,
-                  );
-                },
-                child: Container(
-                  height: screenHeight * 0.5,
-                  alignment: Alignment.center,
-                  child: Text(
-                    " الفصل الثاني",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
+              Card(
+                color: theme.colorScheme.primary,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(
+                      'Login/Level/ViewLevel/',
+                      arguments: season2,
+                    );
+                  },
+                  child: Container(
+                    height: screenHeight * 0.5,
+                    alignment: Alignment.center,
+                    child: Text(
+                      "الفصل الثاني",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
