@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:university_courses/src/models/names_cours/name_courses.dart';
 
 class MyGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-       
+    final Map<String, String> courseDataSelected =
+        ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+
     final theme = Theme.of(context);
     return GridView.count(
       crossAxisCount: 2,
       crossAxisSpacing: 10,
       mainAxisSpacing: 10,
       padding: EdgeInsets.all(10),
-      
-      children: nameCourses.Level1Season1.entries.map(
+      children: courseDataSelected.entries.map(
         (levelName) => InkWell(
           onTap: () {
-
-            print( "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"+levelName.value+"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" + levelName.value +"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             Navigator.of(context).pushNamed('Login/Level/ViewCourseS/', arguments: levelName.value);
           },
           child: Card(
