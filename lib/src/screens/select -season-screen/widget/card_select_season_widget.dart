@@ -19,9 +19,7 @@ class CardSelectSeasonWidget extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Select Season'),
-      ),
+     
       body: Container(
         child: SingleChildScrollView(
           child: Column(

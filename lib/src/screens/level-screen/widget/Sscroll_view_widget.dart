@@ -11,7 +11,7 @@ class ScrollViewWidgetCard extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+            children: [
             CardLevelWidget(
               selectedLevelShow: {
                 'Season1': nameCoursesLevel1.Level1Season1,
@@ -28,15 +28,15 @@ class ScrollViewWidgetCard extends StatelessWidget {
             ),
             CardLevelWidget(
               selectedLevelShow: {
-                'Season1': {}, 
-                'Season2': {},
+                'Season1': nameCoursesLevel3.Level3Season1,  
+                'Season2': nameCoursesLevel3.Level3Season2,
               },
               levelText: "المستوى الثالث",
             ),
             CardLevelWidget(
               selectedLevelShow: {
-                'Season1': {},
-                'Season2': {},
+                'Season1': nameCoursesLevel4.Level4Season1,  
+                'Season2': nameCoursesLevel4.Level4Season2,
               },
               levelText: "المستوى الرابع",
             ),
