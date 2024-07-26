@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:university_courses/src/models/names_cours/names_cours.dart';
+import 'package:university_courses/src/models/names_cours/name_courses.dart';
 
 class MyGridView extends StatelessWidget {
   @override
@@ -12,9 +12,11 @@ class MyGridView extends StatelessWidget {
       mainAxisSpacing: 10,
       padding: EdgeInsets.all(10),
       
-      children: Materials.Level3Season1.map(
-        (material) => InkWell(
+      children: nameCourses.Level1Season1.entries.map(
+        (levelName) => InkWell(
           onTap: () {
+
+            print( "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"+levelName.value+"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             Navigator.of(context).pushNamed('Login/Level/ViewCourseS/');
           },
           child: Card(
@@ -26,7 +28,7 @@ class MyGridView extends StatelessWidget {
               padding: EdgeInsets.all(10),
               child: Center(
                 child: Text(
-                  material,
+                  levelName.key,
                   style: theme.textTheme.bodyLarge,
                 ),
               ),

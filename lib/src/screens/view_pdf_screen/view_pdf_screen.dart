@@ -47,9 +47,7 @@ class _ViewPdfScreenState extends State<ViewPdfScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('View PDF')),
-      body: _documentBytes == null
-          ? const Center(child: CircularProgressIndicator())
-          : SfPdfViewer.memory(_documentBytes!),
+      body: _documentBytes == null? const Center(child: CircularProgressIndicator()): SfPdfViewer.memory(_documentBytes!),
       endDrawer: MyEndDrawer(),
       bottomNavigationBar: MyBottomNavigationBar(),
     );
