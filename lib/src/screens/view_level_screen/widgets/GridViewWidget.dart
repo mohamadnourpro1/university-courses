@@ -17,7 +17,7 @@ class MyGridView extends StatelessWidget {
           onTap: () {
 
             print( "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"+levelName.value+"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            Navigator.of(context).pushNamed('Login/Level/ViewCourseS/');
+            Navigator.of(context).pushNamed('Login/Level/ViewCourseS/', arguments: levelName.value);
           },
           child: Card(
             child: Container(

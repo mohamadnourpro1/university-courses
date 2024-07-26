@@ -10,21 +10,31 @@ class LsitviewBodyWidget extends StatefulWidget {
 
 class _LsitviewBodyWidgetState extends State<LsitviewBodyWidget> {
   List<LectureData> _lectures = [];
-  bool _isLoading = true; 
+  bool _isLoading = true;
+  late String _levelWiew;
 
   @override
-  void initState() {
-    super.initState();
-    _loadLectures();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    // Retrieve the course code from the route arguments
+    final args = ModalRoute.of(context)?.settings.arguments as String?;
+    if (args != null) {
+      _levelWiew = args;
+      _loadLectures();
+    } else {
+      // Handle the case where arguments are missing
+      print('No course code provided');
+    }
   }
 
   Future<void> _loadLectures() async {
     try {
-      // جلب بيانات المحاضرات
-      await LectureData.getALLlectureData("http://192.168.0.105:8000/api/auth/showfile?course_code=ts").then((lectures) {
+      await LectureData.getALLlectureData(_levelWiew)
+          .then((lectures) {
         setState(() {
           _lectures = lectures;
-          _isLoading = false; 
+          _isLoading = false;
         });
       });
     } catch (e) {
@@ -34,11 +44,11 @@ class _LsitviewBodyWidgetState extends State<LsitviewBodyWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context); 
+    final theme = Theme.of(context);
 
     return Scaffold(
       body: _isLoading
-          ? Center(child: CircularProgressIndicator()) 
+          ? Center(child: CircularProgressIndicator())
           : ListView.builder(
               scrollDirection: Axis.vertical,
               itemCount: _lectures.length,
@@ -95,23 +105,3 @@ class _LsitviewBodyWidgetState extends State<LsitviewBodyWidget> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
