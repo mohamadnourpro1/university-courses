@@ -11,7 +11,7 @@ class nameCourses {
  
  static Map<String, String> Level1Season2 = {
  
-   'لغة تخصصية': '',
+   'لغة تخصصية':"http://192.168.0.105:8000/api/auth/showfile?course_code=lg",
   'عربي': '',
   'برمجة2': '',
   // 'شبكات': '',
