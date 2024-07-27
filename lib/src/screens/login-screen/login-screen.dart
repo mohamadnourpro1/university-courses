@@ -1,14 +1,64 @@
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
 import 'package:university_courses/src/widgets/email_field.dart';
 import 'package:university_courses/src/widgets/password_field.dart';
 import 'package:university_courses/src/widgets/signup_text.dart';
 import 'package:university_courses/src/widgets/login_button.dart';
 import 'package:university_courses/theme/theme.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
-class LogInScreen extends StatelessWidget {
+class LogInScreen extends StatefulWidget {
+  @override
+  _LogInScreenState createState() => _LogInScreenState();
+}
+
+class _LogInScreenState extends State<LogInScreen> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
+  bool _isLoading = false;
+
+  Future<void> _login() async {
+    final email = emailController.text;
+    final password = passwordController.text;
+
+    if (email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('يرجى إدخال جميع الحقول')),
+      );
+      return;
+    }
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    final url = Uri.parse('http://192.168.0.105:8000/api/auth/login'); 
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({
+        'email': email,
+        'password': password,
+      }),
+    );
+
+    setState(() {
+      _isLoading = false;
+    });
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+print(data);
+      Navigator.of(context).pushReplacementNamed('Login/Level/');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('فشل تسجيل الدخول: ${response.reasonPhrase}')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,13 +106,12 @@ class LogInScreen extends StatelessWidget {
                     onChanged: (value) {},
                   ),
                   SizedBox(height: 20),
-                  LoginButton(
-                    text: 'تسجيل الدخول',
-                    onPressed: () {
-                      Navigator.of(context)
-                          .pushReplacementNamed('Login/Level/');
-                    },
-                  ),
+                  _isLoading
+                      ? CircularProgressIndicator() 
+                      : LoginButton(
+                          text: 'تسجيل الدخول',
+                          onPressed: _login,
+                        ),
                   SizedBox(height: 20),
                   SignupText(
                     signupText: 'إنشاء حساب',
