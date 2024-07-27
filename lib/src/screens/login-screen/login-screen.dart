@@ -33,7 +33,7 @@ class _LogInScreenState extends State<LogInScreen> {
       _isLoading = true;
     });
 
-    final url = Uri.parse('http://192.168.0.105:8000/api/auth/login'); 
+    final url = Uri.parse('http://192.168.0.105:8000/api/auth/login');
     final response = await http.post(
       url,
       headers: {
@@ -51,77 +51,79 @@ class _LogInScreenState extends State<LogInScreen> {
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
-print(data);
+      print(data);
       Navigator.of(context).pushReplacementNamed('Login/Level/');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('فشل تسجيل الدخول: ${response.reasonPhrase}')),
+        SnackBar(
+          content: Text(
+            'فشل تسيجل الدخول ',
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.red,
+        ),
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        scaffoldBackgroundColor: lightTheme.colorScheme.secondary,
-      ),
-      home: Scaffold(
-        body: Center(
-          child: Container(
-            color: lightTheme.colorScheme.secondary,
-            margin: EdgeInsets.all(20),
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  CircleAvatar(
-                    radius: 52,
-                    child: Image.asset(
-                      'assets/images/logo.png',
-                      width: 100,
-                      height: 100,
-                    ),
+    return Scaffold(
+      backgroundColor: lightTheme.colorScheme.secondary,
+      body: Center(
+        child: Container(
+          color: lightTheme.colorScheme.secondary,
+          margin: EdgeInsets.all(20),
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircleAvatar(
+                  radius: 52,
+                  backgroundColor: Colors.white,
+                  child: Image.asset(
+                    'assets/images/logo.png',
+                    width: 100,
+                    height: 100,
                   ),
-                  SizedBox(height: 20),
-                  Text(
-                    'تسجيل الدخول',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+                ),
+                SizedBox(height: 20),
+                Text(
+                  'تسجيل الدخول',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
-                  SizedBox(height: 20),
-                  EmailField(
-                    controller: emailController,
-                    labelText: 'الايميل',
-                    onChanged: (value) {},
-                  ),
-                  SizedBox(height: 20),
-                  PasswordField(
-                    controller: passwordController,
-                    labelText: 'كلمة المرور',
-                    onChanged: (value) {},
-                  ),
-                  SizedBox(height: 20),
-                  _isLoading
-                      ? CircularProgressIndicator() 
-                      : LoginButton(
-                          text: 'تسجيل الدخول',
-                          onPressed: _login,
-                        ),
-                  SizedBox(height: 20),
-                  SignupText(
-                    signupText: 'إنشاء حساب',
-                    promptText: 'ليس لديك حساب؟',
-                    onSignupPressed: () {
-                      Navigator.of(context).pushNamed('Login/SignUp/');
-                    },
-                  ),
-                ],
-              ),
+                ),
+                SizedBox(height: 20),
+                EmailField(
+                  controller: emailController,
+                  labelText: 'الايميل',
+                  onChanged: (value) {},
+                ),
+                SizedBox(height: 20),
+                PasswordField(
+                  controller: passwordController,
+                  labelText: 'كلمة المرور',
+                  onChanged: (value) {},
+                ),
+                SizedBox(height: 20),
+                _isLoading
+                    ? CircularProgressIndicator()
+                    : LoginButton(
+                        text: 'تسجيل الدخول',
+                        onPressed: _login,
+                      ),
+                SizedBox(height: 20),
+                SignupText(
+                  signupText: 'إنشاء حساب',
+                  promptText: 'ليس لديك حساب؟',
+                  onSignupPressed: () {
+                    Navigator.of(context).pushNamed('Login/SignUp/');
+                  },
+                ),
+              ],
             ),
           ),
         ),

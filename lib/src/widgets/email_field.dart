@@ -14,6 +14,7 @@ class EmailField extends StatelessWidget {
     return TextField(
       controller: controller,
       onChanged: onChanged,
+      style: TextStyle(color: Colors.black), // Set the text color to black
       decoration: InputDecoration(
         labelText: labelText,
         border: OutlineInputBorder(),
