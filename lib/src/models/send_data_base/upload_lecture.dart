@@ -72,7 +72,7 @@ class LectureData {
       print("File Path: $filePath");
       print("....................................................................................................");
 
-      var url = Uri.parse('http://192.168.0.105:8000/api/auth/file');
+      var url = Uri.parse('http://192.168.3.4:8000/api/auth/file');
       var response = await http.post(
         url,
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -86,7 +86,7 @@ class LectureData {
 
       if (response.statusCode == 200) {
         print('Lecture data sent successfully');
-        await getALLlectureData('http://192.168.0.105:8000/api/auth/file');
+        await getALLlectureData('http://192.168.3.4:8000/api/auth/file');
       } else {
         print('Failed to send lecture data: ${response.body}');
       }

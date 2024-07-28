@@ -33,7 +33,7 @@ class _LogInScreenState extends State<LogInScreen> {
       _isLoading = true;
     });
 
-    final url = Uri.parse('http://192.168.0.105:8000/api/auth/login');
+    final url = Uri.parse('http://192.168.3.4:8000/api/auth/login');
     final response = await http.post(
       url,
       headers: {

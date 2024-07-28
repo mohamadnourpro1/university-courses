@@ -45,7 +45,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       _isLoading = true;
     });
 
-    final url = Uri.parse('http://192.168.0.105:8000/api/auth/register');
+    final url = Uri.parse('http://192.168.3.4:8000/api/auth/register');
     try {
       final response = await http.post(
         url,

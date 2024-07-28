@@ -33,7 +33,7 @@ class _PasswordFieldState extends State<PasswordField> {
       controller: widget.controller,
       onChanged: widget.onChanged,
       obscureText: _obscureText,
-      style: TextStyle(color: Colors.black), // Set the text color to black
+      style: TextStyle(color: Colors.black), 
       decoration: InputDecoration(
         labelText: widget.labelText,
         border: OutlineInputBorder(),
